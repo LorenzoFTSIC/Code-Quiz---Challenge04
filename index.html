@@ -13,25 +13,28 @@
 
 <body>
   <header>
-    <nav class="navbar navbar-dark bg-dark justify-content-between">
+    <nav class="navbar navbar-dark bg-dark justify-content-around">
+      <a id="navGame">Game</a>
       <a id="navHighscores">Highscores</a>
-    <div id="timerBox">
-      <h2 id="timer">Time</h2>
+    <div>
+      <h2 id="timer">Timer</h2>
     </div>
     </nav>
   </header>
 
   <main>
-   
+    <section id="startButtonBox">
+      <button type="button" id="startButton">Start</button>
+    </section>
     <section id="gameArea">
-      <h1 id="question">Header</h1>
+      <h1 id="question">Question</h1>
       <div class="break"></div>
       <div>
         <ul>
-          <li class="answersBox">test</li>
-          <li class="answersBox">test</li>
-          <li class="answersBox">test</li>
-          <li class="answersBox">test</li>
+          <li><button type="button" class="answersBox" id="answerA">answer1</button></li>
+          <li><button type="button" class="answersBox" id="answerB">answer2</button></li>
+          <li><button type="button" class="answersBox" id="answerC">answer3</button></li>
+          <li><button type="button" class="answersBox" id="answerD">answer4</button></li>
         </ul>  
       </div>
     </section>
