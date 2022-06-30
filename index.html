@@ -30,13 +30,17 @@
       <h1 id="question">Question</h1>
       <div class="break"></div>
       <div>
-        <ul>
-          <li><button type="button" class="answersBox" id="answerA">answer1</button></li>
-          <li><button type="button" class="answersBox" id="answerB">answer2</button></li>
-          <li><button type="button" class="answersBox" id="answerC">answer3</button></li>
-          <li><button type="button" class="answersBox" id="answerD">answer4</button></li>
+        <ul id="answerList">
+          <li><button type="button" class="answersBox" id="answerA" data-answer="A">A</button><span class="choices" id="choiceA">Answer One</span></li>
+          <li><button type="button" class="answersBox" id="answerB" data-answer="B">B</button><span class="choices" id="choiceB">Answer One</span></li>
+          <li><button type="button" class="answersBox" id="answerC" data-answer="C">C</button><span class="choices" id="choiceC">Answer One</span></li>
+          <li><button type="button" class="answersBox" id="answerD" data-answer="D">D</button><span class="choices" id="choiceD">Answer One</span></li>
         </ul>  
       </div>
+    </section>
+    <section id ="endGameWinScreen">
+      <h1>You won!</h1>
+      <p></p>
     </section>
 
   </main>

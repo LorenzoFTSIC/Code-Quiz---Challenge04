@@ -36,10 +36,37 @@
     
 }
 
+#question {
+    width: 70vw;
+    height: 25vh;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 25px;
+}
+
+#answerList {
+    justify-content: left;
+    width: 60vw;
+}
+
+#endGameWinScreen {
+    display: none;
+    width: 70vw;
+    height: 25vh;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 25px;
+    justify-content: center;
+}
+
+.choices {
+    margin-left: 15px;
+}
+
 .answersBox {
     background-color: teal;
     border-radius: 15px;
-    width: 100px;
+    width: 35px;
     min-height: 25px;
     text-align: center;
     color: white;
@@ -61,7 +88,7 @@ main {
 
 div {
     display: flex;
-    justify-content: left;
+    justify-content: center;
 }
 
 nav {

@@ -1,87 +1,99 @@
 var startButtonBox = document.getElementById("startButtonBox")
 var gameArea = document.getElementById("gameArea")
+var winScreen = document.getElementById("endGameWinScreen")
+var question = document.getElementById("question")
 var answerA = document.getElementById("answerA")
 var answerB = document.getElementById("answerB")
 var answerC = document.getElementById("answerC")
 var answerD = document.getElementById("answerD")
 var totalTime = 60
 var timeLeft = totalTime - 1;
-
-var questions = [
+var timerInterval;
+var display = document.getElementById("timer");
+var timerFlag = false
+var currentQuestion = ""
+var questionArray = [
     {
         title: "CSS stands for:",
         choices: ["Cataract Style Sheet","Color and Style Sheets","Cascading Style Sheets","Counter Strike: Source"],
-        answer: "Cascading Style Sheets"
+        answer: "C"
     },
     {
         title: "Which of the following is the correct syntax for referring the external style sheet?",
         choices: ["<style src = example.css>",`<style src = "example.css" >`,"<stylesheet> example.css </stylesheet>",`<link rel="stylesheet" type="text/css" href="example.css">`],
-        answer: `<link rel="stylesheet" type="text/css" href="example.css">`
+        answer: "D"
     },
     // {
     //     title: "",
     //     choices: ["","","",""],
     //     answer: ""
-    // },
-    // {
-    //     title: "",
-    //     choices: ["","","",""],
-    //     answer: ""
-    // },
-    // {
-    //     title: "",
-    //     choices: ["","","",""],
-    //     answer: ""
-    // },
-    // {
-    //     title: "",
-    //     choices: ["","","",""],
-    //     answer: ""
-    // },
-    // {
-    //     title: "",
-    //     choices: ["","","",""],
-    //     answer: ""
-    // },
-    // {
-    //     title: "",
-    //     choices: ["","","",""],
-    //     answer: ""
-    // },
+    // }
 ]
+var remainingQuestions = questionArray
 
-function startTimer(duration, display) {
-    var timer = duration, seconds;
-    setInterval(function () {
-        // seconds = parseInt(timer % 60, 30);
-        display.textContent = seconds;
-        seconds = parseInt(timer % 60, 10);
-        if (--timer < 0) {
-            timer = duration;
+
+// main game functions, holds questions and event listeners for answers
+function mainGame() {
+    currentQuestion = nextQuestion();
+    answerA.addEventListener("click", handleAnswerSubmit);
+    answerB.addEventListener("click", handleAnswerSubmit);
+    answerC.addEventListener("click", handleAnswerSubmit);
+    answerD.addEventListener("click", handleAnswerSubmit);
+}
+
+
+// check submitted answer, if wrong remove seconds depending on the situation if <= 10 seconds remaining, just set it to 0, any higher remove 10 seconds from timer
+function handleAnswerSubmit() {
+    currentAnswer = currentQuestion["answer"]
+    console.log(this.dataset.answer)
+    if (this.dataset.answer === currentAnswer) {
+        nextQuestion()
+    } else {
+        if (timeLeft <= 10) {
+            timeLeft = 0
+            display.textContent = timeLeft;
+        } else {
+            timeLeft = timeLeft - 10;
+            display.textContent = timeLeft;
         }
-        display.textContent = seconds;
-    }, 1000);
+    }
 }
 
-
-function startTimer(display) {
-    display = document.getElementById("timer");
-    setInterval(function () {
-        display.textContent = timeLeft;
-        timeLeft--;
-
-
-    }, 1000);
-    
+// make sure there's more questions in the list, then change questions
+function nextQuestion() {
+    if (remainingQuestions.length > 0){
+        currentQuestion = remainingQuestions.pop();
+        question.textContent = currentQuestion["title"]
+        return currentQuestion
+    } else {
+        endGame();
+        clearInterval(timerInterval);
+    }
 }
 
+//end game, display score and input name
+function endGame() {
+    gameArea.style.display = "none";
+    winScreen.style.display = "flex";
+}
+
+//timer setup and decrement
+function timing() {
+    display.textContent = timeLeft;
+    timeLeft--;
+    if (timeLeft < 0) {
+        clearInterval(timerInterval);
+    }
+}
+
+// main game function, show game elements, hide start button, set game flag + show time
 function startGame() {
-    startButtonBox.style.display = "none"
-    gameArea.style.display = "flex"
-    // var duration = 60,
-    display = document.getElementById("timer");
-    display.textContent = totalTime
-    startTimer(display);
+    startButtonBox.style.display = "none";
+    gameArea.style.display = "flex";
+    display.textContent = totalTime;
+    timerFlag = true;
+    timerInterval =  setInterval(timing, 1000);
+    mainGame();
 }
 
 startButton.addEventListener("click", startGame);
