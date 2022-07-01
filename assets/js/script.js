@@ -4,12 +4,17 @@ var winScreen = document.getElementById("endGameWinScreen")
 var loseScreen = document.getElementById("endGameLoseScreen")
 var question = document.getElementById("question")
 var submitScoreButton = document.getElementById("")
-var totalTime = 60
+var totalTime = 240
 var timeLeft = totalTime - 1;
 var timerInterval;
 var display = document.getElementById("timer");
 var timerFlag = false
 var currentQuestion = ""
+var scores = [
+    {
+        "Username" : "Scores"
+    }
+]
 var questionArray = [
     {
         title: "CSS stands for:",
@@ -21,11 +26,46 @@ var questionArray = [
         choices: ["<style src = example.css>",`<style src = "example.css" >`,"<stylesheet> example.css </stylesheet>",`<link rel="stylesheet" type="text/css" href="example.css">`],
         answer: "D"
     },
-    // {
-    //     title: "",
-    //     choices: ["","","",""],
-    //     answer: ""
-    // }
+    {
+        title: "The property in CSS used to change the background color of an element is -",
+        choices: ["bgcolor","color","background-color","All of the above"],
+        answer: "C"
+    },
+    {
+        title: "The property in CSS used to change the text color of an element is",
+        choices: ["bgcolor","color","background-color","All of the above"],
+        answer: "B"
+    },
+    {
+        title: "The CSS property used to control the element's font-size is",
+        choices: ["text-style","text-size","font-size","None of the above"],
+        answer: "C"
+    },
+    {
+        title: "The HTML attribute used to define the inline styles is",
+        choices: ["style","styles","class","None of the above"],
+        answer: "A"
+    },
+    {
+        title: "The HTML attribute used to define the internal stylesheet is",
+        choices: ["<style>","style","<link>","<script>"],
+        answer: "A"
+    },
+    {
+        title: "Which of the following CSS property is used to set the background image of an element?",
+        choices: ["background-attachment","background-image","background-color","None of the above"],
+        answer: "B"
+    },
+    {
+        title: "Which of the following is the correct syntax to make the background-color of all paragraph elements to yellow?",
+        choices: ["p {background-color : yellow;}","p {background-color : #yellow;}","all {background-color : yellow;}","all p {background-color : #yellow;}"],
+        answer: "A"
+    },
+    {
+        title: "Which of the following is the correct syntax to display the hyperlinks without any underline?",
+        choices: ["a {text-decoration : underline;}","a {decoration : no-underline;}","a {text-decoration : none;}","None of the above"],
+        answer: "C"
+    },
 ]
 var remainingQuestions = questionArray
 
@@ -87,15 +127,21 @@ function nextQuestion() {
 
 // win game, display score and input name
 function endGameWin() {
+    usernames = localStorage.getItem("usernames");
+    scores = localStorage.getItem("scores")
     gameArea.style.display = "none";
     winScreen.style.display = "flex";
-    var scoreButton = document.getElementById("submitScoreButton");
-    scoreButton.addEventListener("click", submitScore)
+    submitScore()
 }
 
 function submitScore() {
     var submittedUsername = document.getElementById("highScoreUsername").value;
-    localStorage.setItem(submittedUsername, timeLeft)
+    // localStorage.setItem(submittedUsername, timeLeft)
+    var scoreButton = document.getElementById("submitScoreButton");
+    scoreButton.addEventListener("click", submitScore)
+    var submittedScore = [submittedUsername, timeLeft]
+    questionArray.push({submittedUsername : submittedScore})
+    localStorage.setItem("scores", JSON.stringify(questionArray))
     // localStorage.setItem("score", timeLeft)
 }
 
