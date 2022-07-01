@@ -1,11 +1,9 @@
 var startButtonBox = document.getElementById("startButtonBox")
 var gameArea = document.getElementById("gameArea")
 var winScreen = document.getElementById("endGameWinScreen")
+var loseScreen = document.getElementById("endGameLoseScreen")
 var question = document.getElementById("question")
-var answerA = document.getElementById("answerA")
-var answerB = document.getElementById("answerB")
-var answerC = document.getElementById("answerC")
-var answerD = document.getElementById("answerD")
+var submitScoreButton = document.getElementById("")
 var totalTime = 60
 var timeLeft = totalTime - 1;
 var timerInterval;
@@ -34,6 +32,10 @@ var remainingQuestions = questionArray
 
 // main game functions, holds questions and event listeners for answers
 function mainGame() {
+    var answerA = document.getElementById("answerA")
+    var answerB = document.getElementById("answerB")
+    var answerC = document.getElementById("answerC")
+    var answerD = document.getElementById("answerD")
     currentQuestion = nextQuestion();
     answerA.addEventListener("click", handleAnswerSubmit);
     answerB.addEventListener("click", handleAnswerSubmit);
@@ -57,24 +59,50 @@ function handleAnswerSubmit() {
             display.textContent = timeLeft;
         }
     }
+    if (timeLeft === 0) {
+        endGameLose();
+    }
 }
 
 // make sure there's more questions in the list, then change questions
 function nextQuestion() {
     if (remainingQuestions.length > 0){
+        var choiceA = document.getElementById("choiceA")
+        var choiceB = document.getElementById("choiceB")
+        var choiceC = document.getElementById("choiceC")
+        var choiceD = document.getElementById("choiceD")
         currentQuestion = remainingQuestions.pop();
         question.textContent = currentQuestion["title"]
+        console.log(currentQuestion["choices"[0]])
+        choiceA.textContent = currentQuestion["choices"][0]
+        choiceB.textContent = currentQuestion["choices"][1]
+        choiceC.textContent = currentQuestion["choices"][2]
+        choiceD.textContent = currentQuestion["choices"][3]
         return currentQuestion
     } else {
-        endGame();
+        endGameWin();
         clearInterval(timerInterval);
     }
 }
 
-//end game, display score and input name
-function endGame() {
+// win game, display score and input name
+function endGameWin() {
     gameArea.style.display = "none";
     winScreen.style.display = "flex";
+    var scoreButton = document.getElementById("submitScoreButton");
+    scoreButton.addEventListener("click", submitScore)
+}
+
+function submitScore() {
+    var submittedUsername = document.getElementById("highScoreUsername").value;
+    localStorage.setItem(submittedUsername, timeLeft)
+    // localStorage.setItem("score", timeLeft)
+}
+
+// lose game
+function endGameLose() {
+    gameArea.style.display = "none";
+    loseScreen.style.display = "flex";
 }
 
 //timer setup and decrement
@@ -83,6 +111,7 @@ function timing() {
     timeLeft--;
     if (timeLeft < 0) {
         clearInterval(timerInterval);
+        endGameLose();
     }
 }
 

@@ -13,9 +13,9 @@
 
 <body>
   <header>
-    <nav class="navbar navbar-dark bg-dark justify-content-around">
-      <a id="navGame">Game</a>
-      <a id="navHighscores">Highscores</a>
+    <nav class="navbar navbar-dark bg-dark justify-content-left">
+      <!-- <a id="navGame">Game</a> -->
+      <a href="" id="navHighscores">Highscores</a>
     <div>
       <h2 id="timer">Timer</h2>
     </div>
@@ -38,9 +38,20 @@
         </ul>  
       </div>
     </section>
-    <section id ="endGameWinScreen">
-      <h1>You won!</h1>
-      <p></p>
+    <section id ="endGameWinScreen" class="row">
+      <h1 class="col-12">You won!</h1>
+      <!-- <div class="break"></div> -->
+      <h3 row>Please enter your name to submit your high score.</h3>
+      <form class="row col-12 justify-content-center">
+        <div class="form-group row col-12">
+          <label for="highScoreUsername" class="col-8">Username:</label>
+          <input type="username" class="form-control col-8" id="highScoreUsername" placeholder="username">
+        </div>
+        <button type="submit" class="btn btn-primaryrow col-4" id="submitScoreButton">Submit</button>
+      </form>
+    </section>    
+    <section id ="endGameLoseScreen">
+      <h1>You Lose.</h1>
     </section>
 
   </main>
